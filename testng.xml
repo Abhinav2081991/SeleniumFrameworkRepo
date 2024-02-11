@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="tests" thread-count="3">
+
+<!--    <groups>-->
+<!--        <run>-->
+<!--            <include name="PositiveFlow"/>-->
+<!--        </run>-->
+<!--    </groups>-->
+
+    <listeners>
+        <listener class-name="TestComponents.Listeners"/>
+    </listeners>
+
+<!--    <test verbose="2" preserve-order="true" parallel="methods" thread-count="3" name="TestWithFramework1">-->
+<!--        <classes>-->
+<!--        <class name="framework.TestWithFramework1"/>-->
+<!--&lt;!&ndash;        <methods>&ndash;&gt;-->
+<!--&lt;!&ndash;        <include name="test_Validate_Errors_While_Login"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    </methods>&ndash;&gt;-->
+<!--&lt;!&ndash;    </class>&ndash;&gt;-->
+<!--            <class name="framework.TestWithFramework2">-->
+<!--        <methods>-->
+<!--        <include name="test_Data_From_Excel"/>-->
+<!--    </methods>-->
+<!--    </class>-->
+<!--    </classes>-->
+<!--    </test>-->
+    <test verbose="2" preserve-order="true" parallel="methods" thread-count="3" name="AmazonTest">
+        <classes>
+            <class name="framework.AmazonTest"/>
+        </classes>
+    </test>
+</suite>
