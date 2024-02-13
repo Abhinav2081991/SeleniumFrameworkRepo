@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.OrderPage;
 
@@ -73,6 +75,14 @@ public class AbstractComponent {
         File file = ts.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(file, new File(System.getProperty("user.sir")+"//screenshots//"+methodName+".png"));
 
+    }
+
+    public void testFluentWait(){
+
+        Wait wait =  new FluentWait(driver).withTimeout(Duration.ofSeconds(5))
+                .pollingEvery(Duration.ofSeconds(5))
+                .ignoring(NoSuchElementException.class);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(""))));
     }
 
 }
