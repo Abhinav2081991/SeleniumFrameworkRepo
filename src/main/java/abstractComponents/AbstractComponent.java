@@ -83,6 +83,18 @@ public class AbstractComponent {
                 .pollingEvery(Duration.ofSeconds(5))
                 .ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(""))));
+
+
+        String s = "1";
+
+        Integer i = Integer.valueOf(s);
+        int ii = Integer.parseInt(s);
+
+
+        int a = 10;
+        Integer b = new Integer(11);
+        String ss = String.valueOf(a);
+        String g = b.toString();
     }
 
 }

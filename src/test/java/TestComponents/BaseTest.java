@@ -67,6 +67,10 @@ public class BaseTest {
 //
 //            tl.get().findElement(By.xpath(""));
 
+//            HasAuthentication ha = (HasAuthentication) driver;
+//            ha.register(UsernameAndPassword.of("",""));
+
+
             WebDriverManager.chromedriver().setup();
             if(browserName.contains("headless")) {
                 options.addArguments("headless");
