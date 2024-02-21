@@ -159,6 +159,14 @@ public class BaseTest {
                 }
                 k++;
             }
+
+//            int rowCount = firstRow.getPhysicalNumberOfCells();
+//
+//            Row r = sheet.getRow(1);
+//            int colCount = r.getLastCellNum();
+//
+//            Object[][] data =  new Object[rowCount-1][colCount];
+
             System.out.println(column);
 
             while(rows.hasNext()){
@@ -169,6 +177,8 @@ public class BaseTest {
                     Iterator<Cell> cellsValues = row.cellIterator();
                     while(cellsValues.hasNext()){
                             Cell cell = cellsValues.next();
+
+
                         if(cell.getCellType() == CellType.STRING){
                             arrayList.add(cell.getStringCellValue());
                         }
