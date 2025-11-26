@@ -3,14 +3,14 @@ package TestComponents;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
-public class Retry implements IRetryAnalyzer {
+public class RetryAnalyser implements IRetryAnalyzer {
 
     int count=0;
-    int maxTry=1;
-
+    int retry=5;
     @Override
     public boolean retry(ITestResult iTestResult) {
-        if(count<maxTry){
+
+        if(count<retry){
             count++;
             return true;
         }

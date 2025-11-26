@@ -41,21 +41,21 @@ public class BaseTest {
     WebDriver driver;
 
     public WebDriver initializeDriver() throws IOException {
-
         Properties prop  = new Properties();
         prop.load( new FileInputStream(System.getProperty("user.dir")+"\\prop.properties"));
-
         String browserName =
                 System.getProperty("browser")!=null ? System.getProperty("browser") : prop.getProperty("browserName");
-
         if(browserName.contains("Chrome")){
             ChromeOptions options  = new ChromeOptions();
-//            DesiredCapabilities ds =  Derired
-//            ds.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
-//            ds.setAcceptInsecureCerts(true);
-//            ds.setCapability(CapabilityType.BROWSER_NAME, "Chrome");
-//            ds.setCapability(CapabilityType.PLATFORM_NAME, "windows");
+            DesiredCapabilities ds =  new DesiredCapabilities();
+            ds.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+            ds.setAcceptInsecureCerts(true);
+            ds.setCapability(CapabilityType.BROWSER_NAME, "Chrome");
+            ds.setCapability(CapabilityType.PLATFORM_NAME, "windows");
 //            ds.setCapability(EdgeOptions.CAPABILITY);
+//            options.addArguments("headless");  --> for headless mode.
+
+            options.merge(ds); // this is to merge the DeriredCapabilities and ChromeOptions                                                                                                                                                                                          
 
             /*
             This is for ThreadLocal, so that driver instance is not shared among the threads
@@ -66,10 +66,9 @@ public class BaseTest {
 //            tl.set(driver);
 //
 //            tl.get().findElement(By.xpath(""));
-
+//            tl.get().findElement(By.xpath("")).getScreenshotAs(OutputType.FILE);
 //            HasAuthentication ha = (HasAuthentication) driver;
 //            ha.register(UsernameAndPassword.of("",""));
-
 
             WebDriverManager.chromedriver().setup();
             if(browserName.contains("headless")) {
@@ -77,7 +76,7 @@ public class BaseTest {
             }
             options.setAcceptInsecureCerts(true);
             driver =  new ChromeDriver(options);
-            driver.manage().window().setSize(new Dimension(1440,900));
+            //driver.manage().window().setSize(new Dimension(1440,900));
 
         }
         else if (browserName.equalsIgnoreCase("Firefox")){
@@ -192,14 +191,11 @@ public class BaseTest {
     }
 
 
-    @AfterMethod
+//    @AfterMethod
     public void afterMethod(ITestResult result) throws IOException {
         if(result.getStatus() == ITestResult.FAILURE){
             getScreenShot(result.getMethod().getMethodName(), driver);
         }
         driver.close();
     }
-
-
-
 }

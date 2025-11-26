@@ -1,12 +1,12 @@
 package framework;
 
+import TestComponents.RetryAnalyser;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -16,19 +16,17 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class StandaloneTest {
 
-
-    @Test
+    @Test(retryAnalyzer = RetryAnalyser.class)
     public void test(){
 
         WebDriverManager.chromedriver().setup();
         WebDriver driver =  new ChromeDriver();
-
         driver.get("https://rahulshettyacademy.com/client");
         driver.manage().window().maximize();
+        Assert.assertTrue(false);
 //        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS); -- This is deprecated.
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.findElement(By.xpath("//input[@id = 'userEmail']"))
@@ -43,7 +41,6 @@ public class StandaloneTest {
         String cartProduct = product.findElement(By.cssSelector("b")).getText();
 
         product.findElement(By.cssSelector(".card-body button:last-of-type")).click();
-
 
         WebDriverWait wait =  new WebDriverWait(driver,Duration.ofSeconds(5));
 
@@ -103,10 +100,6 @@ public class StandaloneTest {
 
         String successfulMessage =driver.findElement(By.xpath("//h1[contains(@class,'hero-primary')]")).getText();
         Assert.assertEquals(successfulMessage,"THANKYOU FOR THE ORDER.");
-
-
-
-
     }
 
 }

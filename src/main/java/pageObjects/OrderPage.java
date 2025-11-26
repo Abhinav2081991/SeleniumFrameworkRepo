@@ -23,9 +23,4 @@ public class OrderPage extends AbstractComponent {
     public boolean getProductFromOrderList(String productName){
          return productNames.stream().anyMatch(s->s.getText().equalsIgnoreCase(productName));
     }
-
-
-
-
-
 }

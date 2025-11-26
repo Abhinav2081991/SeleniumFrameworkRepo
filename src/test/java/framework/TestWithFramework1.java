@@ -184,7 +184,6 @@ public class TestWithFramework1  extends BaseTest {
     public Object[][] testDataHashMapFromJSON() throws IOException {
 
         List<HashMap<String, String> > list = getDataFromJson(System.getProperty("user.dir")+"\\data.json");
-
         return new Object[][]{
                 {list.get(0)},{list.get(1)}};
 

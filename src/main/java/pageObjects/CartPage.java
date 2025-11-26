@@ -37,7 +37,4 @@ public class CartPage extends AbstractComponent {
     public boolean validateTheCheckedOutProducts(String productName){
         return checkedOutProducts.stream().anyMatch(s->s.getText().equalsIgnoreCase(productName));
     }
-
-
-
 }

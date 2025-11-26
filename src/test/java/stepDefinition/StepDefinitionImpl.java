@@ -8,20 +8,16 @@ import io.cucumber.java.en.When;
 import org.apache.commons.collections4.map.HashedMap;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import pageObjects.CartPage;
-import pageObjects.HomePage;
-import pageObjects.LandingPage;
-import pageObjects.PaymentPage;
+
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class StepDefinitionImpl extends BaseTest {
 
     WebDriver driver;
-
-
 
     @Given("I landed on Ecommerce Page")
     public void I_landed_on_Ecommerce_Page() throws IOException {
@@ -34,13 +30,11 @@ public class StepDefinitionImpl extends BaseTest {
         loginWithUsernameAndPassword(username, password);
     }
 
-
     @When("^I add product (.+) to Cart$")
     public void i_add_product_to_cart(String productName) {
         HomePage hp = new HomePage(driver);
         hp.selectProduct(productName);
         hp.clickCartButton();
-
     }
 
     @When("^Checkout (.+) and submit the order$")
@@ -48,9 +42,9 @@ public class StepDefinitionImpl extends BaseTest {
         CartPage cp =  new CartPage(driver);
         Assert.assertTrue(cp.validateTheCheckedOutProducts(productName));
         cp.clickOnCheckOutButton();
-
     }
-        @Then("{string} message is displayed on ConfirmationPage")
+
+    @Then("{string} message is displayed on ConfirmationPage")
     public void message_is_displayed_on_confirmation_page(String string) {
         PaymentPage pp = new PaymentPage(driver);
         pp.enterCardNumber("5555 5555 5555 5555");
@@ -64,14 +58,12 @@ public class StepDefinitionImpl extends BaseTest {
         Assert.assertTrue(pp.validateSuccessfulMessage(string));
     }
 
-
     @Then("{string} is displayed")
     public void isDisplayed(String messgae) {
         LandingPage lp = new LandingPage(driver);
         String errorMessageActual = lp.getErrorMessage();
         Assert.assertEquals(errorMessageActual,messgae);
     }
-
 
     @Given("I have below items in the shopping cart")
     public void i_have_below_items_in_the_shopping_cart(io.cucumber.datatable.DataTable dataTable) {
@@ -85,15 +77,16 @@ public class StepDefinitionImpl extends BaseTest {
     @Given("I have below items in the shopping cart list")
     public void i_have_below_items_in_the_shopping_cart_list(io.cucumber.datatable.DataTable dataTable) {
        List<List<String>> list = dataTable.asLists();
-
         System.out.println(list.get(0).get(0));
         System.out.println(list.get(0).get(1));
         System.out.println(list.get(1).get(0));
         System.out.println(list.get(1).get(1));
         System.out.println(list.get(2).get(0));
         System.out.println(list.get(2).get(1));
-
-
+//        List<Map<String,String>> map = dataTable.asMaps(String.class, String.class);
+//        for(Map<String,String> m: map){
+//            System.out.println(m.get("Item"));
+//            System.out.println(m.get("Quantity"));
+//        }
     }
-
 }

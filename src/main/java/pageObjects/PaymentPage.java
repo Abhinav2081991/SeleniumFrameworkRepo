@@ -110,9 +110,4 @@ public class PaymentPage extends AbstractComponent {
         String successfulMessage1 =successfulMessage.getText();
         return successfulMessage1.equals(message);
     }
-
-
-
-
-
 }

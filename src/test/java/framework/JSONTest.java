@@ -3,7 +3,9 @@ package framework;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
+import org.testng.IAnnotationTransformer;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.ITestAnnotation;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -15,7 +17,6 @@ import java.util.Map;
 
 public class JSONTest {
 
-
     @Test(dataProvider = "data")
     public void testReadJSONasDataProvider(HashMap<String, String> data){
 
@@ -25,13 +26,11 @@ public class JSONTest {
         System.out.println(data.get("age"));
     }
 
-
     @DataProvider
     public Object[][] data() throws IOException {
         List<HashMap<String,String>> list = getDataFromJSON();
         System.out.println(list.size());
-
-            return new Object[][]{{list.get(0)}, {list.get(1)}};
+        return new Object[][]{{list.get(0)}, {list.get(1)}};
     }
 
     public List<HashMap<String, String>> getDataFromJSON() throws IOException {
@@ -41,8 +40,6 @@ public class JSONTest {
         ObjectMapper mapper = new ObjectMapper();
         List<HashMap<String, String>> list = mapper.readValue(json, new TypeReference<List<HashMap<String, String>>>() {
         });
-
         return list;
-
     }
 }

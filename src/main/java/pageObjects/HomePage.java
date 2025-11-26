@@ -18,12 +18,14 @@ public class HomePage extends AbstractComponent {
         this.driver = driver;
         PageFactory.initElements(driver,this);
     }
+
     @FindBy(css=".mb-3")
     List<WebElement> products;
 
     By addToCart = By.cssSelector(".card-body button:last-of-type");
 
     By toasterMessage = By.cssSelector("#toast-container");
+
     @FindBy(css=".ng-animating")
     WebElement animation;
 
@@ -44,7 +46,6 @@ public class HomePage extends AbstractComponent {
         product.findElement(addToCart).click();
         waitForElementToBeInvisible(animation);
         waitForElementToBeVisible(toasterMessage);
-
     }
 
     public void clickCartButton(){
@@ -56,7 +57,4 @@ public class HomePage extends AbstractComponent {
         String color = colouredText.getAttribute("color");
         return color;
     }
-
-
-
 }

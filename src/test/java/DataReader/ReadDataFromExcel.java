@@ -18,7 +18,7 @@ import java.util.Iterator;
 public class ReadDataFromExcel {
 
 
-    @Test(dataProvider = "read")
+    @Test(dataProvider = "readDataFromExcel")
     public void testExcel(String email, String password, String TestCases, String productName, String TestCaseNumber){
 
         System.out.println(email);
@@ -41,7 +41,6 @@ public class ReadDataFromExcel {
         int colCount = row.getLastCellNum();
         DataFormatter df =  new DataFormatter();
         Object[][] data = new Object[rowCount-1][colCount];
-
         XSSFRow  firstRow = sheet.getRow(0);
         int column = 0;
         int k=0;
@@ -52,22 +51,14 @@ public class ReadDataFromExcel {
             k++;
         }
         System.out.println(column);
-
         for(int i = 0; i<rowCount-1; i++){
-
-            if(sheet.getRow(i).getCell(column).getStringCellValue() .equals("Purchase Order 1")){
-
+            if(sheet.getRow(i).getCell(column).getStringCellValue() .equals("Purchase Order 2")){
                     XSSFRow  r = sheet.getRow(i);
-
                     for(int j=0; j<r.getLastCellNum();j++){
-
                         String cell = df.formatCellValue(r.getCell(j));
                         System.out.println(cell);
                     }
-
             }
-
-
         }
 
 
@@ -75,7 +66,6 @@ public class ReadDataFromExcel {
 
     @DataProvider
     public Object[][] readDataFromExcel() throws IOException {
-
         FileInputStream file = new FileInputStream(System.getProperty("user.dir")+ "\\testDataExcel.xlsx");
         XSSFWorkbook workbook = new XSSFWorkbook(file);
         XSSFSheet sheet = null;
@@ -84,20 +74,14 @@ public class ReadDataFromExcel {
                 sheet = workbook.getSheetAt(i);
             }
         }
-
         int rowCount = sheet.getPhysicalNumberOfRows();
-
         Iterator<Row> rows = sheet.iterator();
         Row firstRow = rows.next();
-
         int colCount = firstRow.getLastCellNum();
-
         Object[][] data = new Object[rowCount-1][colCount];
-
         Iterator<Cell> cells=  firstRow.iterator();
         int k=0;
         int column = 0;
-
         while(cells.hasNext()){
             Cell cell = cells.next();
             if(cell.getStringCellValue().equals("TestCases")){
@@ -106,35 +90,56 @@ public class ReadDataFromExcel {
             k++;
         }
         System.out.println(column);
-
-
-
-
         while(rows.hasNext()){
-
             Row row = rows.next();
-
             if(row.getCell(column).equals("Purchase Order 2")){
-
                 for(int i=0;i<rowCount-1;i++){
-
                     row = sheet.getRow(i+1);
-
                     for(int j = 0; j<colCount;j++){
                         Cell cell = row.getCell(i);
                         data[i][j] = cell;
                     }
                 }
-
-
             }
-
         }
-
         return data;
-
-
     }
 
+    @Test
+    public void readFromExcelPractice() throws IOException {
+
+        XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream("C:\\Users\\abhinati\\Documents\\Personal Documents\\AutomationPractice\\SeleniumFrameworkPractice\\SeleniumFrameworkRepo\\testDataExcel.xlsx"));
+        XSSFSheet sheet = workbook.getSheet("testDataSheet");
+        DataFormatter dataFormatter = new DataFormatter();
+        int totalRows = sheet.getPhysicalNumberOfRows();
+        System.out.println("Total Number of Rows - "+ totalRows);
+        XSSFRow row = sheet.getRow(0);
+        int totalColumns =  row.getLastCellNum();
+        System.out.println("Total number of Columns - "+ totalColumns);
+        /*
+        Now we will write code to figure out a column which contain the header as Test Case
+         */
+        int column=0;
+        int k=0;
+        for(int i=0; i< sheet.getRow(0).getLastCellNum(); i++){
+            if(sheet.getRow(0).getCell(i).getStringCellValue().equals("TestCases")){
+                column=k;
+            }
+            k++;
+        }
+        System.out.println("Column with Test Cases is - " + column);
+        /*
+        Now we will write code to figure out a for which test case we need to fetch the data
+         */
+        for(int i =0; i<=totalRows; i++){
+            if(sheet.getRow(i).getCell(column).getStringCellValue().equals("Purchase Order 2")){
+                for(int j=0;j<totalColumns; j++){
+                    System.out.println(dataFormatter.formatCellValue(sheet.getRow(i).getCell(j)));
+                }
+                break;
+            }
+        }
+
+    }
 
 }

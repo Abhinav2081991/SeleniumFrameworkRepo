@@ -7,9 +7,13 @@
 <!--            <include name="PositiveFlow"/>-->
 <!--        </run>-->
 <!--    </groups>-->
+<parameter name="TestParameter" value="TestValue"></parameter>
 
     <listeners>
         <listener class-name="TestComponents.Listeners"/>
+    </listeners>
+    <listeners>
+        <listener class-name="TestComponents.AnnotationTransformer"/>
     </listeners>
 
 <!--    <test verbose="2" preserve-order="true" parallel="methods" thread-count="3" name="TestWithFramework1">-->
@@ -26,6 +30,7 @@
 <!--    </class>-->
 <!--    </classes>-->
 <!--    </test>-->
+
     <test verbose="2" preserve-order="true" parallel="methods" thread-count="3" name="AmazonTest" >
         <classes>
             <class name="framework.AmazonTest"/>

@@ -1,6 +1,7 @@
 package framework;
 
 import TestComponents.BaseTest;
+import TestComponents.RetryAnalyser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +31,6 @@ import java.util.NoSuchElementException;
 
 public class AmazonTest extends BaseTest {
 
-
     WebDriver driver;
 
     @BeforeMethod(alwaysRun = true)
@@ -44,6 +44,7 @@ public class AmazonTest extends BaseTest {
 //    }
 
     @Test(groups = "TestAmazon")
+    //, retryAnalyzer = RetryAnalyser.class)
     public void testAmazon(){
 
         LandingPage lp =new LandingPage(driver);
@@ -52,13 +53,11 @@ public class AmazonTest extends BaseTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
-
         driver.findElement(By.xpath("//*[@id='twotabsearchtextbox']")).sendKeys("iphone");
         driver.findElement(By.xpath("//*[@id='nav-search-submit-button']")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']"))));
-
 
         WebElement childDriver = driver.findElement(By.xpath("//div[@class='a-section a-spacing-small a-spacing-top-small']"));
 
@@ -67,30 +66,12 @@ public class AmazonTest extends BaseTest {
 
         listNames.stream().limit(5).forEach(s-> System.out.println(s.getText()));
 
-        ;Assert.assertEquals(1,2);
+        Assert.assertEquals(1,2);
 //        listPrices.stream().limit(5).forEach(a-> System.out.println(a.getText()));
 
-        //Fluent Wait
-
-//        WebDriverWait wait = new FluentWait<WebDriver>(driver)
-//                .withTimeout(Duration.ofSeconds(5))
-//                .pollingEvery(Duration.ofSeconds(5))
-//                .ignoring(NoSuchElementException.class);
-//
 //        wait.until(ExpectedConditions.visibilityOf())
 
-
 //        Actions action = new Actions(driver);
-//
 //        action.moveToElement(lp.password).click().keyDown(Keys.SHIFT). sendKeys("test");
-
-
     }
-
-
-
-
-
-
-
 }

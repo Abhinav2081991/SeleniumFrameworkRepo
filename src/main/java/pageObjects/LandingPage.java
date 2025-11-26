@@ -1,17 +1,27 @@
 package pageObjects;
 
 import abstractComponents.AbstractComponent;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.io.File;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LandingPage extends AbstractComponent {
 
     WebDriver driver;
 
     /**
-
     Constructor for Each Class for each Webpage.
      */
     public LandingPage(WebDriver driver){
@@ -24,9 +34,8 @@ public class LandingPage extends AbstractComponent {
 //        driver.findElement(By.id("userPassword")).sendKeys("Newchandela47@");
 //        driver.findElement(By.cssSelector("#login")).click();
 
-
     @FindBy(xpath="//input[@id = 'userEmail']")
-        WebElement userEmail;
+    WebElement userEmail;
 
     @FindBy(id="userPassword")
     WebElement password;
@@ -51,8 +60,4 @@ public class LandingPage extends AbstractComponent {
         waitForElementToBeVisibleWebElement(errorMessage);
         return errorMessage.getText();
     }
-
-
-
-
 }
