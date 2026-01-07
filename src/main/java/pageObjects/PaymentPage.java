@@ -1,6 +1,6 @@
 package pageObjects;
 
-import abstractComponents.AbstractComponent;
+import abstractComponents.AbstractParentComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class PaymentPage extends AbstractComponent {
+public class PaymentPage extends AbstractParentComponent {
 
     WebDriver driver;
     public PaymentPage(WebDriver driver){

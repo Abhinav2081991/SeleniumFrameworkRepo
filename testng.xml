@@ -31,9 +31,14 @@
 <!--    </classes>-->
 <!--    </test>-->
 
-    <test verbose="2" preserve-order="true" parallel="methods" thread-count="3" name="AmazonTest" >
+<!--    <test verbose="2" preserve-order="true" parallel="methods" thread-count="3" name="AmazonTest" >-->
+<!--        <classes>-->
+<!--            <class name="framework.AmazonTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
+    <test verbose="2" preserve-order="true" parallel="methods" thread-count="3" name="TestWithFramework1" >
         <classes>
-            <class name="framework.AmazonTest"/>
+            <class name="framework.TestWithFramework1" />
         </classes>
     </test>
 </suite>

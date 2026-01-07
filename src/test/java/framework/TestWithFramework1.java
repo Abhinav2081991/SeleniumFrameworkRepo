@@ -19,6 +19,7 @@ import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 
+@Listeners(TestComponents.Listeners.class)
 public class TestWithFramework1  extends BaseTest {
 
  WebDriver driver;
@@ -33,7 +34,6 @@ public class TestWithFramework1  extends BaseTest {
      driver.close();
  }
 
-
     @Test(groups = "ErrorHandling", retryAnalyzer = Retry.class)
     public void test_Validate_Errors_While_Login() throws IOException {
 
@@ -41,6 +41,7 @@ public class TestWithFramework1  extends BaseTest {
         launchApplicationWIthINvalidCredentials();
         String errorMessageActual = lp.getErrorMessage();
         Assert.assertEquals(errorMessageActual,"Incorrect email or password.");
+        Assert.assertTrue(false);
 
     }
 

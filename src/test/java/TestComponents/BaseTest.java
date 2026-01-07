@@ -1,7 +1,6 @@
 package TestComponents;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import net.bytebuddy.asm.Advice;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -13,22 +12,14 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.manager.SeleniumManager;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.locators.RelativeLocator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
 import pageObjects.LandingPage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -52,6 +43,7 @@ public class BaseTest {
             ds.setAcceptInsecureCerts(true);
             ds.setCapability(CapabilityType.BROWSER_NAME, "Chrome");
             ds.setCapability(CapabilityType.PLATFORM_NAME, "windows");
+//            ds.setCapability(ChromeOptions.CAPABILITY, options);
 //            ds.setCapability(EdgeOptions.CAPABILITY);
 //            options.addArguments("headless");  --> for headless mode.
 
@@ -72,10 +64,10 @@ public class BaseTest {
 
             WebDriverManager.chromedriver().setup();
             if(browserName.contains("headless")) {
-                options.addArguments("headless");
+                options.addArguments("--headless");
             }
             options.setAcceptInsecureCerts(true);
-            driver =  new ChromeDriver(options);
+            driver = new ChromeDriver(options);
             //driver.manage().window().setSize(new Dimension(1440,900));
 
         }
@@ -88,8 +80,15 @@ public class BaseTest {
             WebDriverManager.edgedriver().setup();
             driver =  new EdgeDriver();
         }
-        driver.manage().window().maximize();
+//        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1440,900));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        return driver;
+    }
+
+    public WebDriver initializeSingletonThreadLocalDriver(){
+        driver = DriverManagerSingletonClass.getDriver();
+        driver.manage().window().maximize();
         return driver;
     }
 
@@ -158,26 +157,21 @@ public class BaseTest {
                 }
                 k++;
             }
-
 //            int rowCount = firstRow.getPhysicalNumberOfCells();
 //
 //            Row r = sheet.getRow(1);
 //            int colCount = r.getLastCellNum();
 //
 //            Object[][] data =  new Object[rowCount-1][colCount];
-
             System.out.println(column);
 
             while(rows.hasNext()){
-
                 Row row = rows.next();
                 if(row.getCell(column).getStringCellValue().equalsIgnoreCase(testCaseName)){
 
                     Iterator<Cell> cellsValues = row.cellIterator();
                     while(cellsValues.hasNext()){
                             Cell cell = cellsValues.next();
-
-
                         if(cell.getCellType() == CellType.STRING){
                             arrayList.add(cell.getStringCellValue());
                         }

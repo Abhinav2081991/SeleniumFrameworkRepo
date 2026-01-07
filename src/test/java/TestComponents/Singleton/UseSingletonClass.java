@@ -1,8 +1,8 @@
-package TestComponents;
+package TestComponents.Singleton;
 
 import org.openqa.selenium.WebDriver;
 
-public class HiUseSingletonClass {
+public class UseSingletonClass {
 
     public static void main(String[] args) {
 

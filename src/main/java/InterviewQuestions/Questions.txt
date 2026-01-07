@@ -157,7 +157,8 @@ What is the default value of instance variable and local variable?
 
 
 
-What is the use of static variable? Can we use static variables inside non static methods? Can we use non static variables inside static methods? How to invoke static methods?
+What is the use of static variable? Can we use static variables inside non static methods? Can we use non static variables inside static methods?
+How to invoke static methods?
 
 
 
@@ -258,7 +259,14 @@ gc1 = null;
 
 
 Difference between System.gc() and Runtime.getRuntime().gc()?
+System.gc() → delegates to → Runtime.getRuntime().gc()
+System.gc() internall calls - Internally calls Runtime.getRuntime().gc()\
 
+
+Runtime.getRuntime().gc();
+Instance method of Runtime class
+Gives direct access to the JVM runtime
+Also only requests garbage collection
 
 
 How do you read contents of a file? How do you write in a file?
@@ -278,6 +286,17 @@ What is multithreading? Difference between process and thread?
 
 
 What is the difference between thread class and runnable interface?
+
+Runnable avoids Java’s single inheritance limitation.
+Thread	- Cannot extend another class, Uses class inheritance
+Create and control a thread
+Task + Thread coupled
+
+
+Runnable - Can extend another class, Uses interface implementation
+Define task to run in a thread
+Task separated from thread
+Runnable follows better design principles  - Single Responsibility Principle
 
 
 
@@ -308,6 +327,7 @@ What is the hierarchy of collection?
 What are the sub interfaces and sub classes of List, Set and Map interface?
 
 What is the difference between ArrayList and LinkedList? Which one is faster in insertion, deletion and random access memory?
+ArrayList is faster for random access and iteration, while LinkedList is better for frequent insertions and deletions in the middle but uses more memory.
 
 What is the difference between singly linkedlist, doubly linkedlist and circular linkedlist?
 
@@ -416,3 +436,6 @@ What is JavaScriptExecutor in Selenium?
 How do you do parallel execution? What is threadlocal?
 
 What are the various ways of click and sendkeys in Selenium?
+Selenium supports clicking and typing using WebElement methods, Actions class, JavaScriptExecutor,
+ keyboard events, and Robot class.
+ Best practice is to use native WebDriver methods first and fall back to JS or Actions only when required.

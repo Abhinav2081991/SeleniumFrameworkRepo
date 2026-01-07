@@ -71,13 +71,19 @@
          <artifactId>selenium-grid</artifactId>
          <version>4.29.0</version>
      </dependency>
-
+     <dependency>
+         <groupId>org.projectlombok</groupId>
+         <artifactId>lombok</artifactId>
+         <version>1.18.30</version>
+<!--         <scope>provided</scope>-->
+     </dependency>
 
  </dependencies>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <suiteXMLFile>testng.xml</suiteXMLFile>
     </properties>
 
     <profiles>
@@ -92,8 +98,24 @@
                             <version>3.2.5</version>
                             <configuration>
                                 <suiteXmlFiles>
-                                    <suiteXmlFile>testng.xml</suiteXmlFile>
+                                    <suiteXmlFile>${suiteXMLFile}</suiteXmlFile>  <!-- Parameterizing the testng.xml file.-->
                                 </suiteXmlFiles>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <version>3.11.0</version>
+                            <configuration>
+                                <source>11</source>
+                                <target>11</target>
+                                <annotationProcessorPaths>
+                                    <path>
+                                        <groupId>org.projectlombok</groupId>
+                                        <artifactId>lombok</artifactId>
+                                        <version>1.18.30</version>
+                                    </path>
+                                </annotationProcessorPaths>
                             </configuration>
                         </plugin>
                     </plugins>
@@ -114,6 +136,22 @@
                                    <include>**/TestNGRunner.java</include>
 <!--                                   This means look for TestNGRunner class in the whole Project-->
                                </includes>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <version>3.11.0</version>
+                            <configuration>
+                                <source>11</source>
+                                <target>11</target>
+                                <annotationProcessorPaths>
+                                    <path>
+                                        <groupId>org.projectlombok</groupId>
+                                        <artifactId>lombok</artifactId>
+                                        <version>1.18.30</version>
+                                    </path>
+                                </annotationProcessorPaths>
                             </configuration>
                         </plugin>
                     </plugins>
@@ -144,14 +182,6 @@
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.0.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>

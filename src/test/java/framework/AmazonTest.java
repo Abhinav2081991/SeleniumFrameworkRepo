@@ -68,9 +68,7 @@ public class AmazonTest extends BaseTest {
 
         Assert.assertEquals(1,2);
 //        listPrices.stream().limit(5).forEach(a-> System.out.println(a.getText()));
-
 //        wait.until(ExpectedConditions.visibilityOf())
-
 //        Actions action = new Actions(driver);
 //        action.moveToElement(lp.password).click().keyDown(Keys.SHIFT). sendKeys("test");
     }

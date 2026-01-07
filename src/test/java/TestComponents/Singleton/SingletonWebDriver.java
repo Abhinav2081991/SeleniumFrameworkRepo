@@ -1,4 +1,4 @@
-package TestComponents;
+package TestComponents.Singleton;
 
 import org.openqa.selenium.WebDriver;
 

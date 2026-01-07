@@ -3,17 +3,15 @@ package abstractComponents;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.Scenario;
-import io.cucumber.java.hu.Ha;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.Rectangle;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -21,20 +19,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import pageObjects.OrderPage;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.*;
+import java.util.List;
 
-public class AbstractComponent {
+public class AbstractParentComponent {
 
     WebDriver driver;
 
-    public AbstractComponent(WebDriver driver) {
+    public AbstractParentComponent(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -89,7 +90,6 @@ public class AbstractComponent {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File file = ts.getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(file, new File(System.getProperty("user.sir") + "//screenshots//" + methodName + ".png"));
-
     }
 
     /*
@@ -116,7 +116,7 @@ public class AbstractComponent {
         Integer i = Integer.valueOf(s);
         int ii = Integer.parseInt(s);
         int a = 10;
-        Integer b = new Integer(11);
+        Integer b = Integer.valueOf(11);
         String ss = String.valueOf(a);
         String g = b.toString();
     }
@@ -193,5 +193,39 @@ public class AbstractComponent {
         // to check if the file exists
         File file = new File("<Path and of Downloaded file>");
         Assert.assertTrue(file.exists());
+    }
+
+    public void uploadFilesUsingRobotClass(String filepath) throws AWTException {
+        
+        //Click on upload button to that dialog box appears - driver.findElement(By.id("uploadBtn")).click();
+        //Copy the file path in context
+        StringSelection selection = new StringSelection(filepath);
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection,null );
+
+        Robot robot = new Robot();
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+
+        //Preferred way : driver.findElement(By.id("fileUpload")).sendKeys("C:\\path\\file.txt");
+    }
+    
+    public void scroll(WebElement element){
+
+        try{
+            Actions action = new Actions(driver);
+            action.scrollToElement(element);
+        } catch (Exception e) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("argument[0].scrollInView(true)", element);
+        } catch (Throwable e) {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,500);");
+        }
+
     }
 }

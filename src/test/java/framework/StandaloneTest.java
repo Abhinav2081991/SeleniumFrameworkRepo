@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.events.WebDriverListener;
 import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -17,7 +18,7 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 import java.util.List;
 
-public class StandaloneTest {
+public class StandaloneTest implements WebDriverListener {
 
     @Test(retryAnalyzer = RetryAnalyser.class)
     public void test(){
@@ -28,7 +29,7 @@ public class StandaloneTest {
         driver.manage().window().maximize();
         Assert.assertTrue(false);
 //        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS); -- This is deprecated.
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5)); 
         driver.findElement(By.xpath("//input[@id = 'userEmail']"))
                 .sendKeys("abhinavtest@gmail.com");
         driver.findElement(By.id("userPassword")).sendKeys("Newchandela47@");

@@ -1,13 +1,16 @@
 package stepDefinition;
 
+import Context.TestContext;
 import TestComponents.BaseTest;
-import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.commons.collections4.map.HashedMap;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import pageObjects.CartPage;
+import pageObjects.HomePage;
+import pageObjects.LandingPage;
+import pageObjects.PaymentPage;
 
 
 import java.io.IOException;
@@ -18,6 +21,13 @@ import java.util.Map;
 public class StepDefinitionImpl extends BaseTest {
 
     WebDriver driver;
+
+//    // Dependency Injection.
+//    TestContext testContext;
+//
+//    public StepDefinitionImpl(TestContext testContext){
+//        this.testContext = testContext;
+//    }
 
     @Given("I landed on Ecommerce Page")
     public void I_landed_on_Ecommerce_Page() throws IOException {
@@ -35,6 +45,12 @@ public class StepDefinitionImpl extends BaseTest {
         HomePage hp = new HomePage(driver);
         hp.selectProduct(productName);
         hp.clickCartButton();
+
+//        OR Using Dependency injection (Pico Container - Constructor Based.)
+
+//        testContext.getHomePage().selectProduct(productName);
+//        testContext.getHomePage().clickCartButton();
+
     }
 
     @When("^Checkout (.+) and submit the order$")
@@ -89,4 +105,42 @@ public class StepDefinitionImpl extends BaseTest {
 //            System.out.println(m.get("Quantity"));
 //        }
     }
+
+    @Given("I want to test Datatable with Item and Quantity Lists")
+    public void i_want_to_test_datatable_with_item_and_quantity_lists(io.cucumber.datatable.DataTable dataTable) {
+        List<List<String>> list = dataTable.asLists(String.class);
+        System.out.println("Printing List of List Items");
+        for(List<String> m: list){
+            System.out.println(m.get(0));
+            System.out.println(m.get(1));
+        }
+    }
+
+// Implementation of Datatable feature
+@Given("I want to test Datatable with Item and Quantity Maps")
+public void i_want_to_test_datatable_with_item_and_quantity_maps(io.cucumber.datatable.DataTable datatable) {
+        // Write code here that turns the phrase above into concrete actions
+        List<Map<String,String>>  list =  datatable.asMaps(String.class, String.class);
+        System.out.println("printing List of Map Items");
+        for(Map<String,String> s : list){
+            System.out.println(s.get("Item"));
+            System.out.println(s.get("Quantity"));
+
+        }
+
+    }
+
+    @Given("I want to use the list as datatable lists")
+    public void i_want_to_use_the_list_as_datatable_lists(io.cucumber.datatable.DataTable dataTable) {
+        List<String> list = dataTable.asList();
+        System.out.println("Printing single list column using Datatable");
+        for(String s: list){
+            System.out.println(s);
+        }
+    }
+
+
+
+
+
 }

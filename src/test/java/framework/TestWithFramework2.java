@@ -2,6 +2,7 @@ package framework;
 
 import TestComponents.BaseTest;
 import TestComponents.Retry;
+import io.cucumber.datatable.DataTable;
 import org.apache.poi.ss.formula.functions.Rows;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -24,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TestWithFramework2 extends BaseTest {
 
@@ -132,11 +134,6 @@ public class TestWithFramework2 extends BaseTest {
                 data[i][j] = formatter.formatCellValue(cell);
             }
         }
-
         return data;
-
     }
-
-
-
 }
