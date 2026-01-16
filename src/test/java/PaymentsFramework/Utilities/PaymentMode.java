@@ -2,16 +2,18 @@ package PaymentsFramework.Utilities;
 
 public class PaymentMode {
 
-    Payment payment;
+    public static Payment makePayment(String PaymentType){
 
-    public static void makePayment(){
-        Payment p = new DebitCard();
-        p.pay();
-    }
-
-
-    public static void main(String[] args) {
-        makePayment();
+        switch(PaymentType) {
+            case "Debit":
+                return new DebitCard();
+            case "Credit":
+                return new CreditCard();
+            case "UPI":
+                return new UPI();
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
 }
