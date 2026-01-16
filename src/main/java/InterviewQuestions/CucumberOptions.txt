@@ -1,0 +1,136 @@
+@RunWith(Cucumber.class)
+@CucumberOptions(
+    features = "src/test/resources/features",
+    glue = "stepdefinitions",
+    plugin = {"pretty"},
+    monochrome = true
+)
+public class TestRunner {
+}
+
+This is the base configuration.
+2️⃣ Passing Cucumber Options via Maven Command Line
+✅ Run from Jenkins / CLI
+
+mvn test
+
+This runs all features, all scenarios.
+3️⃣ Trigger Cucumber Tags from Jenkins
+🔹 Jenkins Command
+
+mvn test -Dcucumber.filter.tags="@smoke"
+
+🔹 Multiple Tags
+
+mvn test -Dcucumber.filter.tags="@smoke and not @wip"
+
+mvn test -Dcucumber.filter.tags="@regression or @sanity"
+
+✔ Most commonly used in CI
+✔ No runner code change needed
+4️⃣ Trigger Specific Feature File
+
+mvn test -Dcucumber.features="src/test/resources/features/login.feature"
+
+5️⃣ Trigger Specific Scenario (By Name)
+
+mvn test -Dcucumber.filter.name="Valid user login"
+
+✔ Useful for debugging failed scenarios
+6️⃣ Override Glue (Step Definitions)
+
+mvn test -Dcucumber.glue="stepdefinitions,hooks"
+
+7️⃣ Override Plugin / Reports from Jenkins
+Example: Generate JSON + HTML Reports
+
+mvn test \
+  -Dcucumber.plugin="pretty,html:target/cucumber-report.html,json:target/cucumber.json"
+
+✔ Jenkins can archive these reports
+8️⃣ Parallel Execution from Jenkins
+Maven Surefire Example
+
+mvn test -DforkCount=2 -DreuseForks=true
+
+Or with TestNG + Cucumber:
+
+mvn test -Ddataproviderthreadcount=5
+
+9️⃣ Jenkinsfile Example (Command Line Driven)
+
+stage('Execute Cucumber Tests') {
+    steps {
+        sh """
+        mvn test \
+        -Dcucumber.filter.tags=${TAGS} \
+        -Dcucumber.features=${FEATURES} \
+        -Dbrowser=${BROWSER}
+        """
+    }
+}
+
+Jenkins Parameters
+
+    TAGS = @smoke
+
+    FEATURES = src/test/resources/features
+
+🔟 Using Maven Profiles (BEST PRACTICE)
+pom.xml
+
+<profiles>
+    <profile>
+        <id>smoke</id>
+        <properties>
+            <cucumber.filter.tags>@smoke</cucumber.filter.tags>
+        </properties>
+    </profile>
+</profiles>
+
+Jenkins Command
+
+mvn test -Psmoke
+
+✔ Clean
+✔ Reusable
+✔ Enterprise-friendly
+1️⃣1️⃣ Environment-Based Execution
+
+mvn test -Denv=qa -Dcucumber.filter.tags="@regression"
+
+String env = System.getProperty("env", "dev");
+
+1️⃣2️⃣ Commonly Used Cucumber CLI Options
+Option	Purpose
+cucumber.filter.tags	Run by tags
+cucumber.features	Feature path
+cucumber.glue	Step package
+cucumber.plugin	Reports
+cucumber.filter.name	Scenario name
+cucumber.execution.parallel.enabled	Parallel runs
+❌ What NOT to Do
+
+❌ Hardcode tags in @CucumberOptions
+❌ Create multiple runners for each tag
+❌ Modify code for Jenkins runs
+🎯 Interview One-Liner
+
+    In Jenkins, Cucumber options are triggered via Maven command-line system properties like -Dcucumber.filter.tags, allowing dynamic control of execution without changing the test code.
+
+✅ Best Practices (Real Projects)
+
+✔ Control execution from Jenkins
+✔ Use tags heavily
+✔ Use Maven profiles
+✔ Keep runner generic
+✔ Archive reports
+🚀 Summary
+
+    Jenkins → Maven → Cucumber
+
+    Use -D system properties
+
+    Tags & features are runtime-controlled
+
+    Cleaner CI/CD integration

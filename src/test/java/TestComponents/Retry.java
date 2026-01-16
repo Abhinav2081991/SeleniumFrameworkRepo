@@ -10,6 +10,12 @@ public class Retry implements IRetryAnalyzer {
 
     @Override
     public boolean retry(ITestResult iTestResult) {
+
+        Throwable error = iTestResult.getThrowable();
+        if(error instanceof  AssertionError){
+            return false;
+        }
+
         if(count<maxTry){
             count++;
             return true;

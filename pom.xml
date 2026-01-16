@@ -100,6 +100,10 @@
                                 <suiteXmlFiles>
                                     <suiteXmlFile>${suiteXMLFile}</suiteXmlFile>  <!-- Parameterizing the testng.xml file.-->
                                 </suiteXmlFiles>
+<!--                                <systemPropertyVariables>-->
+<!--                                    &lt;!&ndash;suppress UnresolvedMavenProperty &ndash;&gt;-->
+<!--                                    <browser>${browser}</browser> This can be used in TestNG parameters  @Parameters-->
+<!--                                </systemPropertyVariables>-->
                             </configuration>
                         </plugin>
                         <plugin>

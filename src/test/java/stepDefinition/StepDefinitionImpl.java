@@ -125,7 +125,6 @@ public void i_want_to_test_datatable_with_item_and_quantity_maps(io.cucumber.dat
         for(Map<String,String> s : list){
             System.out.println(s.get("Item"));
             System.out.println(s.get("Quantity"));
-
         }
 
     }

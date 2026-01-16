@@ -1,0 +1,81 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(
+            name: 'BROWSER',
+            choices: ['chrome', 'firefox', 'edge'],
+            description: 'Select browser'
+        )
+        choice(
+            name: 'PLATFORM',
+            choices: ['WINDOWS', 'MAC', 'LINUX'],
+            description: 'Select OS platform'
+        )
+        string(
+            name: 'GRID_URL',
+            defaultValue: 'http://localhost:4444',
+            description: 'Selenium Grid URL'
+        )
+    }
+
+    environment {
+        MAVEN_OPTS = "-Xmx1024m"
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/your-org/selenium-framework.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Execute Tests') {
+            steps {
+                sh """
+                   mvn test \
+                   -Dbrowser=${params.BROWSER} \
+                   -Dplatform=${params.PLATFORM} \
+                   -Dgrid.url=${params.GRID_URL}
+                """
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: '**/target/*.png', allowEmptyArchive: true
+            archiveArtifacts artifacts: '**/target/*.html', allowEmptyArchive: true
+            junit '**/target/surefire-reports/*.xml'
+        }
+
+        success {
+            echo '✅ Tests executed successfully'
+        }
+
+        failure {
+            echo '❌ Tests failed'
+        }
+    }
+}
+
+------------------------------------------------------------------------------------------------
+
+🔹 Java Code (Reading Jenkins Params)
+String browser = System.getProperty("browser", "chrome");
+String platform = System.getProperty("platform", "LINUX");
+String gridUrl = System.getProperty("grid.url");
+
+MutableCapabilities caps = new MutableCapabilities();
+caps.setCapability("browserName", browser);
+caps.setCapability("platformName", platform);
+
+WebDriver driver = new RemoteWebDriver(new URL(gridUrl), caps);

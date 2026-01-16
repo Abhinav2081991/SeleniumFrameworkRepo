@@ -39,7 +39,7 @@ Remove static variables
 Use ThreadLocal WebDriver
 Ensure each test creates and cleans its own data
 Avoid shared state
-Validate driver teardown using @AfterMethod
+Validate driver teardown using @AfterClass
 📌 Key idea: Thread safety.
 
 🧩 4️⃣ Need Multiple Browsers & Environments

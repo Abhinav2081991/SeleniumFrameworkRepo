@@ -9,12 +9,13 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class DriverManagerSingletonClass {
 
-//    🔷 3️⃣ Driver Factory (Centralized Driver Control)
+// 🔷 3️⃣ Driver Factory (Centralized Driver Control)
 
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-    //It helps achieve this by providing an independent WebDriver instance per thread.
-    // This ensures that each thread has its own isolated WebDriver instance and variables copy,
-    // preventing thread interference or data corruption and improving test stability.
+
+        // It helps achieve this by providing an independent WebDriver instance per thread.
+        // This ensures that each thread has its own isolated WebDriver instance and variables copy,
+        // preventing thread interference or data corruption and improving test stability.
 
     private DriverManagerSingletonClass(){
     }

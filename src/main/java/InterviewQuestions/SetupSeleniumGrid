@@ -1,0 +1,91 @@
+Selenium Grid 4 Setup on Linux (Step-by-Step)
+🖥️ Prerequisites
+
+✔ Linux (Ubuntu 20+ recommended)
+✔ Java 11+
+✔ Chrome / Firefox installed
+
+1️⃣ Install Java
+sudo apt update
+sudo apt install openjdk-17-jdk -y
+java -version
+
+2️⃣ Download Selenium Server (Grid 4)
+mkdir selenium-grid && cd selenium-grid
+wget https://github.com/SeleniumHQ/selenium/releases/download/selenium-4.17.0/selenium-server-4.17.0.jar
+
+3️⃣ Start Selenium Grid (Standalone – Easiest)
+java -jar selenium-server-4.17.0.jar standalone
+
+
+✔ Hub + Node in one process
+✔ Default port: 4444
+
+Open:
+
+http://<linux-ip>:4444/ui
+
+4️⃣ Distributed Mode (Enterprise Setup)
+🔹 Start Hub
+java -jar selenium-server-4.17.0.jar hub
+
+🔹 Start Node
+java -jar selenium-server-4.17.0.jar node \
+  --detect-drivers true \
+  --publish-events tcp://<hub-ip>:4442 \
+  --subscribe-events tcp://<hub-ip>:4443
+
+5️⃣ Verify Node Registration
+curl http://<hub-ip>:4444/status
+
+
+✔ Node should appear as UP
+
+6️⃣ Enable Headless Mode (Recommended for CI)
+ChromeOptions options = new ChromeOptions();
+options.addArguments("--headless=new");
+
+caps.merge(options);
+
+7️⃣ Run Grid as a Service (Optional but Recommended)
+
+Create service file:
+
+sudo nano /etc/systemd/system/selenium-grid.service
+
+[Unit]
+Description=Selenium Grid
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/java -jar /opt/selenium/selenium-server.jar standalone
+Restart=always
+User=ubuntu
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reexec
+sudo systemctl enable selenium-grid
+sudo systemctl start selenium-grid
+
+🔐 Security Best Practices (VERY IMPORTANT)
+
+✔ Do NOT expose Grid publicly
+✔ Use firewall / VPN
+✔ Jenkins + Grid on same network
+✔ Limit max sessions
+
+🧪 Real-World Architecture
+Developer
+   |
+Jenkins (Linux)
+   |
+Selenium Grid (Linux)
+   ├── Chrome Node
+   ├── Firefox Node
+   └── Edge Node
+
+🎯 Interview One-Liner
+
+In CI/CD, Selenium Grid is hosted on Linux and triggered via Jenkins pipelines using parameterized builds, enabling scalable, parallel, cross-platform browser execution.

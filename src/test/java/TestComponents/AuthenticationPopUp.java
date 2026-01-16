@@ -11,6 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class AuthenticationPopUp {
     public static void main(String[] args) {
+
         ChromeOptions options = new ChromeOptions();
 
         DesiredCapabilities ds = new DesiredCapabilities();
@@ -24,7 +25,7 @@ public class AuthenticationPopUp {
         WebDriver driver = new ChromeDriver(options);
         driver.get("http://username:password@the-insecure-site.com");
 
-        //In Selenium 4.0
+        // ---- In Selenium 4.0 ----
         ((HasAuthentication) driver).register(UsernameAndPassword.of("username","password"));
         driver.get("Application URL");
     }

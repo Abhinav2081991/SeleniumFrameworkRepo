@@ -1,0 +1,16 @@
+1. Comparator --- first sort by age and the if age is same then sort by name   -- Done.
+2. Waterfall to Agile what changes in the Test Strategy document
+3. Different payment methods  Credit card, debit card, UPI --> Come up with design pattern to implement this.
+4. Jenkins - Declarative and Scriptive pipeline
+5. Jenkins - how to store critical security files,  truststore, keystore files.
+6. Quality Gate in automation framework and Quality gate tools
+7. Root cause analysis principles
+8. Datatable - Cucumber fetch nth record from Data table
+9. Parallel Execution in Cucumber - (not using TestNG) , how to integrate parallelism from testNG to Cucumber
+10. How to achieve parallelism using Jenkins and Cucumber
+11. Types of Listeners used in selenium
+12. What is the difference between rebase and git merge. In which condition we will use git rebase.
+13. What is the difference between POM and Page factory pattern.
+14. How did you implement Liskov Substitution principle in your framework
+15. Where have you used function, predicate etc in your framework.
+16. Lombok implementation. in pom

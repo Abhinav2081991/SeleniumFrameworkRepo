@@ -1,5 +1,8 @@
 package TestComponents;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentReporter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.ss.usermodel.Cell;
@@ -16,6 +19,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
+import org.testng.annotations.BeforeSuite;
 import pageObjects.LandingPage;
 
 import java.io.File;
@@ -30,6 +34,8 @@ import java.util.Properties;
 public class BaseTest {
 
     WebDriver driver;
+    ExtentReports report;
+    ExtentTest test;
 
     public WebDriver initializeDriver() throws IOException {
         Properties prop  = new Properties();
@@ -184,7 +190,6 @@ public class BaseTest {
        return arrayList;
     }
 
-
 //    @AfterMethod
     public void afterMethod(ITestResult result) throws IOException {
         if(result.getStatus() == ITestResult.FAILURE){
@@ -192,4 +197,5 @@ public class BaseTest {
         }
         driver.close();
     }
+
 }

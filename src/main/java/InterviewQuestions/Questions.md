@@ -137,7 +137,7 @@ public static void main(String[] args) {
 
 String str = " hello ";
 str.trim();
-System.out.println(str);
+System.out.println(str);   " hello "
 }
 
 }
@@ -179,12 +179,13 @@ What is the difference between while and do-while?
 
 
 What will happen if we don’t have break statement inside matching catch? Should default be the last statement in a switch case block?
-
+ Not mandatory, code will execute but readability decreases.
 
 
 Can your switch statement accept long, double or float data type?
 
-
+    Floating-point values are not reliable for exact matching
+    Precision issues make them unsafe
 
 What is the hierarchy of throwable class? What are checked and unchecked exceptions?
 

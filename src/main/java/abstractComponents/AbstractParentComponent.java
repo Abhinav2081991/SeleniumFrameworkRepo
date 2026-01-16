@@ -74,14 +74,15 @@ public class AbstractParentComponent {
         while (itr.hasNext()) {
             String childWindow = itr.next();
             driver.switchTo().window(childWindow);
-//            driver.findElement(RelativeLocator.with(By.xpath("")).above(""));
 
+//            driver.findElement(RelativeLocator.with(By.xpath("")).above(""));
 //            Actions actions = new Actions(driver);
 //            actions.moveToElement(driver.findElement(By.xpath(""))).click().keyDown(Keys.SHIFT).sendKeys("Text");
 
 //            JavascriptExecutor js = (JavascriptExecutor) driver;
 //            js.executeScript("window.scrollBy(0,500)");
 //            js.executeScript("document.querySelector("css").scrollBy(5,5000)");
+
         }
     }
 

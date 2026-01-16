@@ -132,7 +132,7 @@ public class ReadDataFromExcel {
         Now we will write code to figure out a for which test case we need to fetch the data
          */
         for(int i =0; i<=totalRows; i++){
-            if(sheet.getRow(i).getCell(column).getStringCellValue().equals("Purchase Order 2")){
+            if(sheet.getRow(i).getCell(11).getStringCellValue().equals("Purchase Order 2")){
                 for(int j=0;j<totalColumns; j++){
                     System.out.println(dataFormatter.formatCellValue(sheet.getRow(i).getCell(j)));
                 }

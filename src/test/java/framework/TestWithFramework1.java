@@ -112,7 +112,7 @@ public class TestWithFramework1  extends BaseTest {
     }
 
 
-
+    @Parameters("<ParameterName>")
     @Test(groups = "PositiveFlow2",dataProvider = "testDataHashMap",retryAnalyzer = Retry.class)
     public void test1_Create_An_Order_HashMap(HashMap<String,String> input) throws IOException {
 

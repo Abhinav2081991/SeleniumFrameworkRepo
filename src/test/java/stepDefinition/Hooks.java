@@ -9,13 +9,13 @@ import io.cucumber.java.BeforeStep;
 
 public class Hooks {
 
-////    🔷 4️⃣ Hooks (Dependency Injection Happens Here)
+////  🔷 4️⃣ Hooks (Dependency Injection Happens Here)
 //    private TestContext testContext;
 //
 //    public Hooks(TestContext testContext){
 //        this.testContext=testContext;
 //    }
-////    Cucumber injects TestContext automatically (PicoContainer).
+////  Cucumber injects TestContext automatically (PicoContainer).
 //
 //    @Before
 //    public void Setup(){

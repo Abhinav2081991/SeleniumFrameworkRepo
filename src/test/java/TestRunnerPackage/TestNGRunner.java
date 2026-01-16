@@ -7,9 +7,11 @@ import io.cucumber.testng.CucumberOptions;
         glue ="stepDefinition",
         monochrome = true,
         dryRun = false,
-        plugin = {"html:target/cucumber.html"},
+        plugin = {"pretty",
+                "json:target/cucumber-reports/cucumber.json", "html:target/cucumber.html"},
         tags = "@test1 or @test2 or @test3")
         //tags = "@test1 or @test2 and @test3")
+//,"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
 public class TestNGRunner extends AbstractTestNGCucumberTests {
 }
 
